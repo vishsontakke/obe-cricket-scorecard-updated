@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1220">
+  <title>Daily Cricket Cricket Scorecard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div>
+        <div class="brand">🏏 Daily Cricket Cricket</div>
+        <div class="subtitle">Live Scorecard</div>
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn" id="newMatchBtn" title="New match">＋</button>
+        <button class="icon-btn" id="historyBtn" title="Match history">☰</button>
+      </div>
+    </header>
+
+    <main class="container">
+      <section id="setupView" class="view">
+        <div class="hero-card">
+          <div class="hero-icon">🏆</div>
+          <div>
+            <h1>Create Match</h1>
+            <p>Set up teams, players and overs. Everything is saved on this device.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title"><span>Match details</span><span class="pill">Step 1</span></div>
+          <div class="grid-2">
+            <label>Match title<input id="matchTitle" placeholder="Sunday League Final"></label>
+            <label>Overs
+              <select id="overs">
+                <option value="1">1 Over</option><option value="2">2 Overs</option>
+                <option value="5">5 Overs</option><option value="10">10 Overs</option>
+                <option value="20" selected>20 Overs</option><option value="50">50 Overs</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title"><span>Teams</span><span class="pill">Step 2</span></div>
+          <div id="teamEditor"></div>
+        </div>
+
+        <button class="primary full" id="startMatchBtn">Start Match →</button>
+      </section>
+
+      <section id="scoreView" class="view hidden">
+        <div class="score-header">
+          <div>
+            <div class="small-label" id="inningsLabel">1st INNINGS</div>
+            <h1 id="battingTeamName">Team A</h1>
+            <div class="muted" id="matchMeta">20 overs</div>
+          </div>
+          <button class="secondary" id="scorecardBtn">Scorecard</button>
+        </div>
+
+        <div class="score-card">
+          <div class="score-main"><span id="runs">0</span><span class="slash">/</span><span id="wickets">0</span></div>
+          <div class="overs-text">Overs <b id="oversDone">0.0</b> · RR <b id="runRate">0.00</b></div>
+          <div class="target-box hidden" id="targetBox">Target <b id="target">-</b> · Need <b id="needRuns">-</b> off <b id="needBalls">-</b></div>
+        </div>
+
+        <div class="partnership card">
+          <div class="section-title"><span>Current batters</span></div>
+          <div class="batter-row">
+            <div class="player active"><span class="bat-icon">🏏</span><div><b id="strikerName">Striker</b><small id="strikerStats">0 (0)</small></div><strong id="strikerOn">*</strong></div>
+            <div class="player"><span class="bat-icon">🏏</span><div><b id="nonStrikerName">Non-striker</b><small id="nonStrikerStats">0 (0)</small></div></div>
+          </div>
+          <div class="bowler-row"><span>🎯 Bowler</span><b id="bowlerName">Bowler</b><span id="bowlerStats">0.0 ov · 0/0</span></div>
+        </div>
+
+        <div class="scoring card">
+          <div class="section-title"><span>Score this ball</span><span class="pill live">LIVE</span></div>
+          <div class="run-grid">
+            <button data-run="0">0</button><button data-run="1">1</button><button data-run="2">2</button>
+            <button data-run="3">3</button><button data-run="4" class="four">4</button><button data-run="6" class="six">6</button>
+          </div>
+          <div class="extra-grid">
+            <button data-extra="wide">Wide</button>
+            <button data-extra="noball">No Ball</button>
+            <button data-extra="bye">Bye</button>
+            <button data-extra="legbye">Leg Bye</button>
+            <button id="declareBtn" class="declare">Declare</button>
+            <button id="wicketBtn" class="danger">Wicket</button>
+            <button id="undoBtn" class="secondary">↶ Undo</button>
+          </div>
+        </div>
+
+        <div class="card recent-card">
+          <div class="section-title"><span>Recent balls</span><span id="ballCount" class="muted">0 balls</span></div>
+          <div id="recentBalls" class="ball-strip"></div>
+        </div>
+      </section>
+
+      <section id="scorecardView" class="view hidden">
+        <div class="page-title"><button class="back-btn" id="backScoreBtn">←</button><div><h1>Scorecard</h1><p id="scorecardTitle">Match</p></div></div>
+        <div id="scorecardContent"></div>
+      </section>
+
+      <section id="historyView" class="view hidden">
+        <div class="page-title"><h1>Match History</h1><button class="secondary" id="closeHistoryBtn">Close</button></div>
+        <div id="historyList"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-box">
+      <div class="modal-head"><h2 id="modalTitle">Wicket</h2><button id="modalClose">×</button></div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+<script src="app.js"></script>
+</body>
+</html>
